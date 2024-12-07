@@ -13,6 +13,7 @@ import {
   IonCardTitle,
   IonCardSubtitle,
   IonCardContent,
+  IonButton,
 } from '@ionic/angular/standalone';
 import { MyDataService } from '../services/my-data.service';
 import { MyHttpService } from '../services/my-http.service';
@@ -25,6 +26,7 @@ import { CountriesApiServiceService } from '../services/countries-api-service.se
   styleUrls: ['./countries.page.scss'],
   standalone: true,
   imports: [
+    IonButton,
     IonCardContent,
     IonCardSubtitle,
     IonCardTitle,
@@ -40,15 +42,12 @@ import { CountriesApiServiceService } from '../services/countries-api-service.se
     FormsModule,
   ],
 })
-
-
-
 export class CountriesPage implements OnInit {
   countries: any[] = [];
   searchTerm: string = '';
 
   constructor(
-    private mds: MyDataService, 
+    private mds: MyDataService,
     private apiService: CountriesApiServiceService
   ) {}
 
@@ -69,13 +68,11 @@ export class CountriesPage implements OnInit {
     this.apiService.getCountriesByName(this.searchTerm).subscribe({
       next: (response) => {
         this.countries = response;
-        console.log('Countries: ', this.countries)
+        console.log('Countries: ', this.countries);
       },
       error: (error) => {
         console.error('Error retrieving countries:', error);
-      }
-    })
+      },
+    });
   }
-
- 
 }

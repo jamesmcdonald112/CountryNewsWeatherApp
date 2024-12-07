@@ -9,14 +9,16 @@
 
 <ion-content [fullscreen]="true">
   <ion-card *ngFor="let country of countries">
-   
+    <img
+      src="{{ country.flags.png }}"
+      alt="{{ country.name.common + ' flag' }}"
+    />
     <ion-card-header>
-      <ion-card-title>Card Title</ion-card-title>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>{{ country.name.common }}</ion-card-title>
     </ion-card-header>
-  
     <ion-card-content>
-      Here's a small text description for the card content. Nothing more, nothing less.
+      <ion-button color="primary" fill="outline">News</ion-button>
+      <ion-button e color="primary" fill="outline">Weather</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>
