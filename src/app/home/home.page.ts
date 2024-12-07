@@ -17,6 +17,7 @@ import {
 } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { MyDataService } from '../services/my-data.service';
 
 @Component({
   selector: 'app-home',
@@ -45,7 +46,14 @@ import { FormsModule } from '@angular/forms';
 export class HomePage {
   countryName: string = '';
 
-  constructor() {
+  constructor(private mds: MyDataService) {
   
+  }
+
+  ngOnInit() {
+  }
+
+  async setCountry() {
+   await this.mds.set("country", this.countryName);
   }
 }
