@@ -43,9 +43,9 @@ import { FormsModule } from '@angular/forms';
   ],
 })
 export class HomePage {
-  countryName!: string;
+  countryName: string = '';
 
   constructor() {
-    this.countryName = '';
+  
   }
 }

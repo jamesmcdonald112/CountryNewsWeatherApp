@@ -1,13 +1,24 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>settings</ion-title>
+    <ion-title>Settings</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">settings</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list>
+    <ion-radio-group [(ngModel)]="selectedSetting">
+      <ion-item>
+        <ion-radio value="metric" slot="start">Metric</ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-radio value="scientific" slot="start">Scientific</ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-radio value="fahrenheit" slot="start">Fahrenheit</ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
 </ion-content>
