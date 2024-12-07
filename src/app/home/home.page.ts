@@ -18,6 +18,7 @@ import {
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MyDataService } from '../services/my-data.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -44,16 +45,34 @@ import { MyDataService } from '../services/my-data.service';
   ],
 })
 export class HomePage {
-  countryName: string = '';
+  searchTerm: string = '';
 
-  constructor(private mds: MyDataService) {
+  constructor(private mds: MyDataService, private router: Router) {
   
   }
 
   ngOnInit() {
   }
 
-  async setCountry() {
-   await this.mds.set("country", this.countryName);
+  get isButtonDisabled(): boolean {
+    return this.searchTerm.trim() === '';
+  }
+  
+  async setSearchTermAndNavigate() {
+    // Blur the button to remove focus
+    const button = document.activeElement as HTMLElement;
+    if (button) {
+      button.blur();
+    }
+  
+    // Save the search term
+    await this.setSearchTerm();
+  
+    // Navigate to the Countries page
+    this.router.navigate(['/countries']);
+  }
+
+  private async setSearchTerm() {
+   await this.mds.set("searchTerm", this.searchTerm);
   }
 }

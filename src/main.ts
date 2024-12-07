@@ -9,6 +9,8 @@ import { addIcons } from 'ionicons';
 import { settingsOutline, homeOutline } from 'ionicons/icons';
 import { importProvidersFrom } from '@angular/core';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { provideHttpClient } from '@angular/common/http';
+
 
 // Register icons
 addIcons({
@@ -21,6 +23,7 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    importProvidersFrom(IonicStorageModule.forRoot())
+    importProvidersFrom(IonicStorageModule.forRoot()),
+    provideHttpClient()
   ],
 });
