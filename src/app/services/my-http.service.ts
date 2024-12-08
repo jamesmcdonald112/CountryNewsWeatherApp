@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { CapacitorConfig } from '@capacitor/cli';
-import { Capacitor, CapacitorHttp, HttpOptions } from '@capacitor/core';
-
+import {
+  Capacitor,
+  CapacitorHttp,
+  HttpOptions,
+  HttpResponse,
+} from '@capacitor/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MyHttpService {
+  constructor() {}
 
-  constructor() { }
-
-  async get(options: HttpOptions) {
-    return await CapacitorHttp.get(options)
+  async get(options: HttpOptions): Promise<HttpResponse> {
+    return await CapacitorHttp.get(options);
   }
 }

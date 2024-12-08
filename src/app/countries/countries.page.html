@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let country of countries">
+  <ion-card *ngFor="let country of countries" (click)="setCountryCode(country)">
     <img
       src="{{ country.flags.png }}"
       class="ion-margin"
@@ -21,4 +21,5 @@
       <ion-button e color="primary" fill="outline" (click)="navigateToWeather()">Weather</ion-button>
     </ion-card-content>
   </ion-card>
+
 </ion-content>

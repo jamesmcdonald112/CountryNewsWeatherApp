@@ -72,4 +72,6 @@ export class HomePage {
   private async setSearchTerm() {
     await this.mds.set('searchTerm', this.searchTerm);
   }
+
+  
 }

@@ -47,6 +47,7 @@ import { DomUtilsService } from '../services/dom-utils.service';
 export class CountriesPage implements OnInit {
   countries: any[] = [];
   searchTerm: string = '';
+  countryCode: string = '';
 
   constructor(
     private mds: MyDataService,
@@ -69,25 +70,31 @@ export class CountriesPage implements OnInit {
   }
 
   async getCountries() {
-    this.apiService.getCountriesByName(this.searchTerm).subscribe({
-      next: (response) => {
-        this.countries = response;
-        console.log('Countries: ', this.countries);
-      },
-      error: (error) => {
-        console.error('Error retrieving countries:', error);
-      },
-    });
+    try {
+      const countries = await this.apiService.getCountriesByName(this.searchTerm);
+      this.countries = countries;
+      console.log('Countries:', this.countries);
+    } catch (error) {
+      console.error('Error retrieving countries:', error);
+    }
   }
 
+  public setCountryCode(country: any) {
+    this.mds.setCountryCode(country.cca2);
+    console.log('Country code', this.countryCode);
+  }
 
   public navigateToNews() {
     this.domUtils.blurActiveButton();
-    this.router.navigate(['/news'])
+    this.mds.setCountryCode(this.countryCode).then(() => {
+      this.router.navigate(['/news']);
+    });
   }
 
   public navigateToWeather() {
     this.domUtils.blurActiveButton();
-    this.router.navigate(['/weather'])
+    this.mds.setCountryCode(this.countryCode).then(() => {
+      this.router.navigate(['/weather']);
+    });
   }
 }
