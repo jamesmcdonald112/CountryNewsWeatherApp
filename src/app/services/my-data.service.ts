@@ -22,6 +22,14 @@ export class MyDataService {
     return await this.storage.get(key);
   }
 
+  async setCountry(code: string) {
+    await this.set('country', code);
+  }
+
+  async getCountry(): Promise<string | null > {
+    return await this.get('country');
+  }
+
   async setCountryCode(code: string) {
     await this.set('countryCca2Code', code);
   }

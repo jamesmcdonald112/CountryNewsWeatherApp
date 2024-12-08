@@ -61,7 +61,7 @@ export class CountriesPage implements OnInit {
   }
 
   async getSearchTermFromStorage() {
-    this.searchTerm = await this.mds.get('searchTerm');
+    this.searchTerm = await this.mds.getCountry() || '';
     if (this.searchTerm) {
       this.getCountries();
     } else {
@@ -104,6 +104,7 @@ export class CountriesPage implements OnInit {
 
   public async navigateToWeather() {
     this.domUtils.blurActiveButton();
+
     this.router.navigate(['/weather']);
   }
 }

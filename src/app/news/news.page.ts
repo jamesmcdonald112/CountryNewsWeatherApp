@@ -45,8 +45,9 @@ import { MyDataService } from '../services/my-data.service';
   ],
 })
 export class NewsPage implements OnInit {
-  url: string = '';
   newsResults: any = [];
+  countryName: string = '';
+  noNews: boolean = false;
 
   constructor(
     private newsApiService: NewsApiServiceService,
@@ -54,18 +55,18 @@ export class NewsPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.mds
-      .getCountryCca2Code()
-      .then((counntryCca2Code) => {
-        if (counntryCca2Code) {
-          this.getNewsData(counntryCca2Code);
-        } else {
-          console.error(' No Country Cca2 code found');
-        }
-      })
-      .catch((error) => {
-        console.log('Error retrieving country cca2 code');
-      });
+    this.loadNewsData();
+  }
+
+  private async loadNewsData() {
+    const countryCode = (await this.mds.getCountryCca2Code()) || '';
+    this.countryName = (await this.mds.getCountry()) || 'Unknown Country';
+
+    if (countryCode) {
+      await this.getNewsData(countryCode);
+    } else {
+      console.error('No country code found');
+    }
   }
 
   private async getNewsData(countryCca2Code: string) {
@@ -75,8 +76,10 @@ export class NewsPage implements OnInit {
       );
       if (newsData && newsData.results) {
         this.newsResults = newsData.results;
+        this.noNews = false;
         console.log('News data:', this.newsResults);
       } else {
+        this.noNews = true;
         console.log('No news data available');
       }
     } catch (error) {

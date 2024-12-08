@@ -41,7 +41,7 @@ import { MyDataService } from '../services/my-data.service';
   ],
 })
 export class WeatherPage implements OnInit {
-  weatherData: any = [];
+  weatherData: any = {};
   units!: string
 
   constructor(
@@ -64,7 +64,8 @@ export class WeatherPage implements OnInit {
 
   private async getWeatherData(location: string) {
     try {
-      const data = await this.weatherApiService.getWeatherByCity(location);
+      const data:any = await this.weatherApiService.getWeatherByCity(location);
+      console.log('API Response:', data);
       if (data && data.current && data.location) {
         this.weatherData = data;
         console.log('Weather data:', this.weatherData);

@@ -7,7 +7,9 @@ import { MyDataService } from './my-data.service';
 })
 export class WeatherApiService {
   private startingUrl: string =
-    'http://api.weatherstack.com/current?access_key=e11f97aa6311aa946458a82e84e4be53&query=';
+    'http://api.weatherstack.com/current?access_key=';
+
+  apiKey: string = '75629052b42aeb8eb633aa5f78da266b';
 
   constructor(private http: MyHttpService, private mds: MyDataService) {}
 
@@ -15,7 +17,7 @@ export class WeatherApiService {
     const units = (await this.mds.getUnits()) || 'm';
 
     const options = {
-      url: `${this.startingUrl}${city}&units=${units}`,
+      url: `${this.startingUrl}${this.apiKey}&query=${city}&units=${units}`,
     };
     const response = await this.http.get(options);
     return response.data;

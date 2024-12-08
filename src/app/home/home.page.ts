@@ -46,7 +46,7 @@ import { DomUtilsService } from '../services/dom-utils.service';
   ],
 })
 export class HomePage {
-  searchTerm: string = '';
+  country: string = '';
 
   constructor(
     private mds: MyDataService,
@@ -64,7 +64,7 @@ export class HomePage {
   }
 
   public get isButtonDisabled(): boolean {
-    return this.searchTerm.trim() === '';
+    return this.country.trim() === '';
   }
 
 
@@ -77,7 +77,7 @@ export class HomePage {
   }
 
   private async setSearchTerm() {
-    await this.mds.set('searchTerm', this.searchTerm);
+    await this.mds.setCountry(this.country);
   }
 
   
