@@ -84,6 +84,7 @@ export class CountriesPage implements OnInit {
   public setCountryData(country: any) {
     this.storeCountryCode(country);
     this.storeCaptialCity(country);
+    this.storeCountryName(country);
   }
 
   private storeCountryCode(country: any) {
@@ -97,14 +98,20 @@ export class CountriesPage implements OnInit {
     console.log('Captial: ', capitalCity);
   }
 
-  public navigateToNews() {
+  private storeCountryName(country: any) {
+    this.mds.setCountry(country.name.common);
+    console.log('Country name:', country.name.common);
+  }
+
+  public navigateToNews(country: any) {
     this.domUtils.blurActiveButton();
+    this.setCountryData(country);
     this.router.navigate(['/news']);
   }
 
-  public async navigateToWeather() {
+  public async navigateToWeather(country: any) {
     this.domUtils.blurActiveButton();
-
+    this.setCountryData(country);
     this.router.navigate(['/weather']);
   }
 }
