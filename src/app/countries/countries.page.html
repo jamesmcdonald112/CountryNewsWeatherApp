@@ -11,14 +11,14 @@
   <ion-card *ngFor="let country of countries">
     <img
       src="{{ country.flags.png }}"
-      alt="{{ country.name.common + ' flag' }}"
+      class="ion-margin"
     />
     <ion-card-header>
       <ion-card-title>{{ country.name.common }}</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-button color="primary" fill="outline">News</ion-button>
-      <ion-button e color="primary" fill="outline">Weather</ion-button>
+      <ion-button color="primary" fill="outline" (click)="navigateToNews()">News</ion-button>
+      <ion-button e color="primary" fill="outline" (click)="navigateToWeather()">Weather</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

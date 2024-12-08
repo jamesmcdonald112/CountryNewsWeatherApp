@@ -19,6 +19,8 @@ import { MyDataService } from '../services/my-data.service';
 import { MyHttpService } from '../services/my-http.service';
 import { HttpOptions } from '@capacitor/core';
 import { CountriesApiServiceService } from '../services/countries-api-service.service';
+import { Router } from '@angular/router';
+import { DomUtilsService } from '../services/dom-utils.service';
 
 @Component({
   selector: 'app-countries',
@@ -48,7 +50,9 @@ export class CountriesPage implements OnInit {
 
   constructor(
     private mds: MyDataService,
-    private apiService: CountriesApiServiceService
+    private apiService: CountriesApiServiceService,
+    private router: Router,
+    private domUtils: DomUtilsService
   ) {}
 
   ngOnInit() {
@@ -74,5 +78,16 @@ export class CountriesPage implements OnInit {
         console.error('Error retrieving countries:', error);
       },
     });
+  }
+
+
+  public navigateToNews() {
+    this.domUtils.blurActiveButton();
+    this.router.navigate(['/news'])
+  }
+
+  public navigateToWeather() {
+    this.domUtils.blurActiveButton();
+    this.router.navigate(['/weather'])
   }
 }

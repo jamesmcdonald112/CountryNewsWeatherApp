@@ -19,6 +19,7 @@ import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MyDataService } from '../services/my-data.service';
 import { Router } from '@angular/router';
+import { DomUtilsService } from '../services/dom-utils.service';
 
 @Component({
   selector: 'app-home',
@@ -47,32 +48,28 @@ import { Router } from '@angular/router';
 export class HomePage {
   searchTerm: string = '';
 
-  constructor(private mds: MyDataService, private router: Router) {
-  
-  }
+  constructor(
+    private mds: MyDataService,
+    private router: Router,
+    private domUtils: DomUtilsService
+  ) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   get isButtonDisabled(): boolean {
     return this.searchTerm.trim() === '';
   }
-  
+
   async setSearchTermAndNavigate() {
-    // Blur the button to remove focus
-    const button = document.activeElement as HTMLElement;
-    if (button) {
-      button.blur();
-    }
-  
-    // Save the search term
+    // Used to avoid aria hidden element when changing page
+    this.domUtils.blurActiveButton();
+
     await this.setSearchTerm();
-  
-    // Navigate to the Countries page
+
     this.router.navigate(['/countries']);
   }
 
   private async setSearchTerm() {
-   await this.mds.set("searchTerm", this.searchTerm);
+    await this.mds.set('searchTerm', this.searchTerm);
   }
 }
