@@ -23,10 +23,18 @@ export class MyDataService {
   }
 
   async setCountryCode(code: string) {
-    await this.set('country_cca2_code', code);
+    await this.set('countryCca2Code', code);
   }
 
   async getCountryCca2Code(): Promise<string | null > {
-    return await this.get('country_cca2_code');
+    return await this.get('countryCca2Code');
+  }
+
+  async setCapitalCity(capital: string) {
+    await this.set('capitalCity', capital);
+  }
+
+  async getCapitalCity(): Promise<string | null> {
+    return await this.get('capitalCity');
   }
 }

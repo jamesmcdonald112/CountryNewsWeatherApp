@@ -63,7 +63,7 @@ export class CountriesPage implements OnInit {
   async getSearchTermFromStorage() {
     this.searchTerm = await this.mds.get('searchTerm');
     if (this.searchTerm) {
-      this.getCountries(); // Fetch countries only if searchTerm exists
+      this.getCountries();
     } else {
       console.error('No search term found in storage.');
     }
@@ -71,7 +71,9 @@ export class CountriesPage implements OnInit {
 
   async getCountries() {
     try {
-      const countries = await this.apiService.getCountriesByName(this.searchTerm);
+      const countries = await this.apiService.getCountriesByName(
+        this.searchTerm
+      );
       this.countries = countries;
       console.log('Countries:', this.countries);
     } catch (error) {
@@ -79,22 +81,29 @@ export class CountriesPage implements OnInit {
     }
   }
 
-  public setCountryCode(country: any) {
+  public setCountryData(country: any) {
+    this.storeCountryCode(country);
+    this.storeCaptialCity(country);
+  }
+
+  private storeCountryCode(country: any) {
     this.mds.setCountryCode(country.cca2);
     console.log('Country code', this.countryCode);
   }
 
+  private storeCaptialCity(country: any) {
+    const capitalCity = country.capital[0];
+    this.mds.setCapitalCity(capitalCity);
+    console.log('Captial: ', capitalCity);
+  }
+
   public navigateToNews() {
     this.domUtils.blurActiveButton();
-    this.mds.setCountryCode(this.countryCode).then(() => {
-      this.router.navigate(['/news']);
-    });
+    this.router.navigate(['/news']);
   }
 
   public navigateToWeather() {
     this.domUtils.blurActiveButton();
-    this.mds.setCountryCode(this.countryCode).then(() => {
-      this.router.navigate(['/weather']);
-    });
+    this.router.navigate(['/weather']);
   }
 }
