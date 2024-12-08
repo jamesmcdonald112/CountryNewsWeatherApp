@@ -17,9 +17,6 @@ export class NewsApiServiceService {
   async getNewsByCountry(countryCca2Code: string): Promise<any> {
     const options = {
       url: `${this.startingUrl}&country=${countryCca2Code}`,
-      headers: {
-        'Content-Type': 'application/json',
-      },
     };
     const response = await this.http.get(options);
     return response.data; // Access the response data

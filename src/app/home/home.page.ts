@@ -56,12 +56,19 @@ export class HomePage {
 
   ngOnInit() {}
 
-  get isButtonDisabled(): boolean {
+  public navigateSetting() {
+    this.domUtils.blurActiveButton();
+
+    this.router.navigate(['/settings']);
+
+  }
+
+  public get isButtonDisabled(): boolean {
     return this.searchTerm.trim() === '';
   }
 
-  async setSearchTermAndNavigate() {
-    // Used to avoid aria hidden element when changing page
+
+  public async setSearchTermAndNavigate() {
     this.domUtils.blurActiveButton();
 
     await this.setSearchTerm();

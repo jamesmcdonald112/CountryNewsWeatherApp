@@ -37,4 +37,12 @@ export class MyDataService {
   async getCapitalCity(): Promise<string | null> {
     return await this.get('capitalCity');
   }
+
+  async setUnits(units: string) {
+    await this.set('units', units);
+  }
+
+  async getUnits(): Promise<string | null> {
+    return await this.get('units')
+  }
 }

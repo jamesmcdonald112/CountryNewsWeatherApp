@@ -102,7 +102,7 @@ export class CountriesPage implements OnInit {
     this.router.navigate(['/news']);
   }
 
-  public navigateToWeather() {
+  public async navigateToWeather() {
     this.domUtils.blurActiveButton();
     this.router.navigate(['/weather']);
   }

@@ -1,16 +1,23 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Weather</ion-title>
+    <ion-title>Weather for {{weatherData?.location?.name}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
-  <ion-buttons slot="end">
-    <ion-back-button></ion-back-button>
-  </ion-buttons>
+  
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Weather</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card *ngIf="weatherData?.current">
+    <img class="ion-margin-top ion-margin-start" src="{{weatherData.current.weather_icons[0]}}">
+    <ion-card-header>
+      <ion-card-title>{{weatherData.current.weather_descriptions}}</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      {{weatherData.current.temperature}} ({{weatherData.request.unit}})
+    </ion-card-content>
+
+  </ion-card>
 </ion-content>

@@ -47,10 +47,10 @@ export class SettingsPage implements OnInit {
   }
 
   private async loadSetting() {
-    this.selectedSetting = await this.mds.get('setting') || 'metric';
+    this.selectedSetting = (await this.mds.getUnits()) || 'm';
   }
 
   public async saveSetting() {
-    await this.mds.set('setting', this.selectedSetting);
+    await this.mds.setUnits(this.selectedSetting);
   }
 }
