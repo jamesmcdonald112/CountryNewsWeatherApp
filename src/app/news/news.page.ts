@@ -11,6 +11,11 @@ import {
   IonCardTitle,
   IonCardSubtitle,
   IonCardContent,
+  IonList,
+  IonItem,
+  IonThumbnail,
+  IonBackButton,
+  IonButtons,
 } from '@ionic/angular/standalone';
 import { NewsApiServiceService } from '../services/news-api-service.service';
 import { MyDataService } from '../services/my-data.service';
@@ -21,6 +26,10 @@ import { MyDataService } from '../services/my-data.service';
   styleUrls: ['./news.page.scss'],
   standalone: true,
   imports: [
+    IonButtons,
+    IonBackButton,
+    IonItem,
+    IonList,
     IonCardContent,
     IonCardSubtitle,
     IonCardTitle,
@@ -32,6 +41,7 @@ import { MyDataService } from '../services/my-data.service';
     IonToolbar,
     CommonModule,
     FormsModule,
+    IonThumbnail,
   ],
 })
 export class NewsPage implements OnInit {
@@ -60,7 +70,9 @@ export class NewsPage implements OnInit {
 
   private async getNewsData(countryCca2Code: string) {
     try {
-      const newsData = await this.newsApiService.getNewsByCountry(countryCca2Code);
+      const newsData = await this.newsApiService.getNewsByCountry(
+        countryCca2Code
+      );
       if (newsData && newsData.results) {
         this.newsResults = newsData.results;
         console.log('News data:', this.newsResults);
