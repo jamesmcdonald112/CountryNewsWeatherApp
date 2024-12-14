@@ -14,7 +14,7 @@
 
   <div *ngIf="!noNews">
     <ion-card *ngFor="let news of newsResults" class="ion-margin">
-      <img *ngIf="news.image_url" src="{{news.image_url}}" class="news-image" />
+      <img *ngIf="news.image_url" src="{{news.image_url}}" alt="{{ news.title }}" class="news-image" />
       <ion-card-header>
         <ion-card-title>{{ news.title }}</ion-card-title>
       </ion-card-header>
