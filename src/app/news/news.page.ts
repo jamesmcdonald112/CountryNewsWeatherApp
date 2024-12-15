@@ -28,10 +28,7 @@ import { MyDataService } from '../services/my-data.service';
   imports: [
     IonButtons,
     IonBackButton,
-    IonItem,
-    IonList,
     IonCardContent,
-    IonCardSubtitle,
     IonCardTitle,
     IonCardHeader,
     IonCard,
@@ -41,7 +38,6 @@ import { MyDataService } from '../services/my-data.service';
     IonToolbar,
     CommonModule,
     FormsModule,
-    IonThumbnail,
   ],
 })
 export class NewsPage implements OnInit {
@@ -74,16 +70,19 @@ export class NewsPage implements OnInit {
       const newsData = await this.newsApiService.getNewsByCountry(
         countryCca2Code
       );
-      if (newsData && newsData.results) {
+      if (newsData && newsData.results && Array.isArray(newsData.results)) {
         this.newsResults = newsData.results;
         this.noNews = false;
         console.log('News data:', this.newsResults);
       } else {
         this.noNews = true;
+        this.newsResults = [];
         console.log('No news data available');
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error getting news:', error);
+      this.newsResults = [];
+      this.noNews = true;
     }
   }
 }

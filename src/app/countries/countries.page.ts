@@ -11,13 +11,10 @@ import {
   IonCard,
   IonCardHeader,
   IonCardTitle,
-  IonCardSubtitle,
   IonCardContent,
   IonButton,
 } from '@ionic/angular/standalone';
 import { MyDataService } from '../services/my-data.service';
-import { MyHttpService } from '../services/my-http.service';
-import { HttpOptions } from '@capacitor/core';
 import { CountriesApiServiceService } from '../services/countries-api-service.service';
 import { Router } from '@angular/router';
 import { DomUtilsService } from '../services/dom-utils.service';
@@ -30,7 +27,6 @@ import { DomUtilsService } from '../services/dom-utils.service';
   imports: [
     IonButton,
     IonCardContent,
-    IonCardSubtitle,
     IonCardTitle,
     IonCardHeader,
     IonCard,
@@ -48,6 +44,7 @@ export class CountriesPage implements OnInit {
   countries: any[] = [];
   searchTerm: string = '';
   countryCode: string = '';
+  errorMessage: string = 'No countries found. Try searching again.';
 
   constructor(
     private mds: MyDataService,
@@ -61,7 +58,7 @@ export class CountriesPage implements OnInit {
   }
 
   async getSearchTermFromStorage() {
-    this.searchTerm = await this.mds.getCountry() || '';
+    this.searchTerm = (await this.mds.getCountry()) || '';
     if (this.searchTerm) {
       this.getCountries();
     } else {
@@ -74,10 +71,16 @@ export class CountriesPage implements OnInit {
       const countries = await this.apiService.getCountriesByName(
         this.searchTerm
       );
-      this.countries = countries;
-      console.log('Countries:', this.countries);
+      if (countries && Array.isArray(countries)) {
+        this.countries = countries;
+        console.log('Countries:', this.countries);
+      } else {
+        this.countries = [];
+      }
     } catch (error) {
       console.error('Error retrieving countries:', error);
+      this.countries = [];
+    } finally {
     }
   }
 

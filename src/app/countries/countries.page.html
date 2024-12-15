@@ -8,6 +8,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+   <!-- Show message if no countries are found -->
+   <div *ngIf="!countries?.length" class="no-results">
+    <p>{{ errorMessage }}</p>
+  </div>
+
   <ion-card *ngFor="let country of countries">
     <img
       src="{{ country.flags.png }}"

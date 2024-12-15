@@ -1,0 +1,5 @@
+My github account is jamesmcdonald112
+
+Link to the project: https://github.com/jamesmcdonald112/CountryNewsWeatherApp
+
+using weatherstack.com
